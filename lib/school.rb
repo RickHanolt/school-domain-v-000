@@ -3,30 +3,26 @@ require 'pry'
 class School
   attr_accessor :name, :roster
 
-  def initialize(name, roster = {})
+  def initialize(name)
     @name = name
-    @roster = roster
+    @roster = {}
   end
 
-  def add_student(student, grade_number)
-    if roster[grade_number] != nil
-      roster[grade_number] << student
-    else
-      roster[grade_number] = []
-      roster[grade_number] << student
-    end
+  def add_student(student, grade)
+    roster[grade] ||= []
+    roster[grade] << student
   end
 
-  def grade(grade_number)
-    roster[grade_number]
+  def grade(grade)
+    roster[grade]
   end
 
   def sort
-    sorted_hash = {}
-    roster.keys.each do |grade|
-      sorted_hash[grade] = roster[grade].sort
+    sorted = {}
+    @roster.each do |grade, students|
+      sorted[grade] = students.sort
     end
-    sorted_hash
+    sorted
   end
 
 end
